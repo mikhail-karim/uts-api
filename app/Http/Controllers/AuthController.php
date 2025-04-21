@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -13,7 +14,8 @@ class AuthController extends Controller
         $fields = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed',
+            'api_key' => Str::random(60),
         ]);
 
         $user = User::create($fields);
@@ -22,7 +24,8 @@ class AuthController extends Controller
 
         return [
             'user' => $user,
-            'token' => $token->plainTextToken
+            'token' => $token->plainTextToken,
+            'api_key' => $user->api_key,
         ];
     }
 
@@ -50,7 +53,8 @@ class AuthController extends Controller
 
         return [
             'user' => $user,
-            'token' => $token->plainTextToken
+            'token' => $token->plainTextToken,
+            'api_key' => $user->api_key,
         ];
     }
 
