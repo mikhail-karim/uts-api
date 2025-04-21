@@ -15,13 +15,18 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
+        ]);
+    
+        // Create user manually and add the API key
+        $user = User::create([
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'password' => bcrypt($fields['password']),
             'api_key' => Str::random(60),
         ]);
-
-        $user = User::create($fields);
-
-        $token = $user->createToken($request->name);
-
+    
+        $token = $user->createToken($user->name);
+    
         return [
             'user' => $user,
             'token' => $token->plainTextToken,
