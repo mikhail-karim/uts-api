@@ -66,7 +66,7 @@ class MoviePolicy
 
     public function modify(User $user, Movie $movie): Response
     {
-        return $user->id === $movie->id
+        return $user->id === $movie->user_id
             ? Response::allow()
             : Response::deny('You do not own this movie');
     }
