@@ -41,7 +41,7 @@
 
                     <div class="mt-6 flex gap-4">
                         <button type="submit"
-                                class=" text-black bg-gray-700 hover:bg-gray-600">
+                                class="px-4 py-2 rounded text-black bg-gray-700 hover:bg-gray-600">
                             Update Movie
                         </button>
                         <a href="{{ route('movies.index') }}"

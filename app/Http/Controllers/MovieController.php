@@ -19,7 +19,7 @@ class MovieController extends Controller // implements HasMiddleware
     // public static function middleware()
     // {
     //     return [
-    //         new Middleware('auth:sanctum', except: ['index', 'show'])
+    //         new Middleware('api_key', except: ['index', 'show', 'destroy'])
     //     ];
     // }
     public function index(Request $request)
@@ -94,13 +94,12 @@ class MovieController extends Controller // implements HasMiddleware
         // ]);
         $movie = Movie::findOrFail($id);
 
-        // Default values in case OMDB fails
         $poster = null;
         $year = null;
         $genre = null;
     
-        if ($movie->imdb_id) {
-            $omdbApiKey = env('OMDB_API_KEY'); // Make sure this is set in your .env
+        if ($movie->imdb_id) {  
+            $omdbApiKey = env('OMDB_API_KEY');
             $response = Http::get("http://www.omdbapi.com/?i={$movie->imdb_id}&apikey={$omdbApiKey}");
     
             if ($response->ok() && $response->json()['Response'] === 'True') {
@@ -108,10 +107,16 @@ class MovieController extends Controller // implements HasMiddleware
                 $poster = $data['Poster'] ?? null;
                 $year = $data['Year'] ?? null;
                 $genre = $data['Genre'] ?? null;
+            } else {
+                logger()->warning('OMDB fetch failed', [
+                    'imdb_id' => $movie->imdb_id,
+                    'response' => $response->json()
+                ]);
             }
         }
     
         return view('movies.show', compact('movie', 'poster', 'year', 'genre'));
+        //return response()->json($movie);
     }
 
     public function edit(Movie $movie)

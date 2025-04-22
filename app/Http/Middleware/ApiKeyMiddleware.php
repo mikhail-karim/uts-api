@@ -30,9 +30,11 @@ class ApiKeyMiddleware
 
         $user = User::where('api_key', $apiKey)->first();
 
-        if (!$user) {
-            return response()->json(['message' => 'Invalid API Key'], 401);
-        }
+        // if (!$user) {
+        //     return response()->json(['message' => 'Invalid API Key'], 401);
+        // }
+
+        $request->setUserResolver(fn () => $user);
 
         // Auth::shouldUse('web');
         // Set the authenticated user
@@ -41,5 +43,7 @@ class ApiKeyMiddleware
 
         return $next($request);
     }
+
+    
 }
 

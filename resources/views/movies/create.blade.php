@@ -41,7 +41,7 @@
                             Add Movie
                         </button>
                         <a href="{{ route('movies.index') }}"
-                        class=" text-gray-700 bg-gray-700 hover:bg-gray-600">Cancel</a>
+                        class=" text-gray-700 py-2 px-4 rounded">Cancel</a>
                     </div>
                 </form>
             </div>

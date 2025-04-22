@@ -67,7 +67,7 @@
                 <p><strong>Status:</strong> {{ $movie->status }}</p>
                 <p><strong>Note:</strong> {{ $movie->note }}</p>
                 @if ($year)
-                    <p><strong>Year:</strong> {{ $year }}</p>
+                <p><strong>Year:</strong> {{ $year }}</p>
                 @endif
                 @if ($genre)
                     <p><strong>Genre:</strong> {{ $genre }}</p>
