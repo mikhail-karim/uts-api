@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Post;
+use App\Models\Movie;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -21,8 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('modify', function ($user, Post $post) {
-            return $user->id === $post->user_id;
+        // Gate::define('modify', function ($user, Post $post) {
+        //     return $user->id === $post->user_id;
+        // });
+        Gate::define('modify', function ($user, Movie $movie) {
+            return $user->id === $movie->user_id;
         });
     }
 }

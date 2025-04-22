@@ -71,4 +71,23 @@ class AuthController extends Controller
             'message' => 'You are logged out.' 
         ];
     }
+
+    public function generateApiKey(Request $request)
+    {
+    $user = $request->user();
+    $user->api_key = Str::random(60);
+    $user->save();
+
+    return response()->json([
+        'message' => 'API Key generated successfully.',
+        'api_key' => $user->api_key,
+    ]);
+    }
+
+    public function showApiKey(Request $request)
+    {
+        return response()->json([
+            'api_key' => $request->user()->api_key,
+        ]);
+    }
 }

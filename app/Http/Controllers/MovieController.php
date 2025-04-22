@@ -7,17 +7,18 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Gate;
 
-class MovieController extends Controller implements HasMiddleware
+class MovieController extends Controller // implements HasMiddleware
 {
     use AuthorizesRequests;
 
-    public static function middleware()
-    {
-        return [
-            new Middleware('auth:sanctum', except: ['index', 'show'])
-        ];
-    }
+    // public static function middleware()
+    // {
+    //     return [
+    //         new Middleware('auth:sanctum', except: ['index', 'show'])
+    //     ];
+    // }
     public function index(Request $request)
     {
         return Movie::where('user_id', $request->user()->id)->get();
@@ -54,7 +55,10 @@ class MovieController extends Controller implements HasMiddleware
         // $movie->update($request->all());
 
         // return $movie;
-        $this->authorize('update', $movie); // ✅ Enforce ownership
+
+        // return response()->json($request->user());
+
+        Gate::authorize('modify', $movie); // ✅ Enforce ownership
 
         $data = $request->validate([
             'title' => 'required|string|max:255',
@@ -66,7 +70,7 @@ class MovieController extends Controller implements HasMiddleware
     
         $movie->update($data);
     
-        return response()->json($movie);
+        return ['movie' => $movie, 'user' => $movie->user];
     }
 
     // public function destroy(Request $request, $id)
@@ -84,7 +88,7 @@ class MovieController extends Controller implements HasMiddleware
 
     public function destroy(Movie $movie)
     {
-        $this->authorize('delete', $movie);
+        Gate::authorize('modify', $movie);
 
         $movie->delete();
     
