@@ -18,8 +18,8 @@ class Movie extends Model
         'poster_url',
     ];
 
-    public function user()
+    public function user() 
     {
-        return $this->belongsTo(User::class);
+       return $this->belongsTo(User::class);
     }
 }
