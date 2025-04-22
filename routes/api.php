@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\OmdbController;
 use App\Http\Kernel;
 use App\Http\Controllers\MovieController;
 use App\Http\Middleware\ApiKeyMiddleware;
@@ -30,3 +30,4 @@ Route::middleware(ApiKeyMiddleware::class)->group(function () {
     // Route::delete('/movies/{id}', [MovieController::class, 'destroy']);
     Route::delete('/movies/{movie}', [MovieController::class, 'destroy']);
 });
+Route::middleware(ApiKeyMiddleware::class)->get('/omdb/search', [OmdbController::class, 'search']);
