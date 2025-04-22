@@ -44,7 +44,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Your Watchlist') }}
+                {{ __('My Watchlist') }}
             </h2>
             <a href="{{ route('movies.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
                 + Add Movie

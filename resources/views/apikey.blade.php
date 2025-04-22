@@ -86,16 +86,14 @@
                 >
                 <button
                 onclick="copyApiKey()"
-                class="px-4 py-2 text-black bg-blue-600 rounded hover:bg-blue-700"
+                class="mt-6 px-4 py-2 text-black bg-blue-600 rounded hover:bg-blue-700"
                 >
                 Copy
                  </button>
-                
-
-                <a href="{{ route('dashboard') }}"
+                {{-- <a href="{{ route('dashboard') }}"
                    class="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded">
                     Continue to Dashboard
-                </a>
+                </a> --}}
             </div>
         </div>
     </div>
